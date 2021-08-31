@@ -1,0 +1,7 @@
+zone "exemplo.local" {
+	type master;
+    file "db.exemplo";
+    allow-transfer {192.168.42.22; };
+    notify yes;	
+    also-notify {192.168.42.22; };
+};

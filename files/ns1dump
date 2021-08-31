@@ -1,0 +1,49 @@
+23:06:47.288656 IP 192.168.42.21 > 192.168.42.22: ICMP echo request, id 2874, seq 1, length 64
+23:06:47.289078 IP 192.168.42.22 > 192.168.42.21: ICMP echo reply, id 2874, seq 1, length 64
+23:06:48.293373 IP 192.168.42.21 > 192.168.42.22: ICMP echo request, id 2874, seq 2, length 64
+23:06:48.293752 IP 192.168.42.22 > 192.168.42.21: ICMP echo reply, id 2874, seq 2, length 64
+23:06:49.317600 IP 192.168.42.21 > 192.168.42.22: ICMP echo request, id 2874, seq 3, length 64
+23:06:49.318604 IP 192.168.42.22 > 192.168.42.21: ICMP echo reply, id 2874, seq 3, length 64
+23:06:50.319235 IP 192.168.42.21 > 192.168.42.22: ICMP echo request, id 2874, seq 4, length 64
+23:06:50.320609 IP 192.168.42.22 > 192.168.42.21: ICMP echo reply, id 2874, seq 4, length 64
+23:06:51.321203 IP 192.168.42.21 > 192.168.42.22: ICMP echo request, id 2874, seq 5, length 64
+23:06:51.322212 IP 192.168.42.22 > 192.168.42.21: ICMP echo reply, id 2874, seq 5, length 64
+23:06:52.322792 IP 192.168.42.21 > 192.168.42.22: ICMP echo request, id 2874, seq 6, length 64
+23:06:52.323960 IP 192.168.42.22 > 192.168.42.21: ICMP echo reply, id 2874, seq 6, length 64
+23:06:52.389477 ARP, Request who-has 192.168.42.22 tell 192.168.42.21, length 28
+23:06:52.390396 ARP, Reply 192.168.42.22 is-at 08:00:27:4d:b7:1c (oui Unknown), length 46
+23:06:52.506188 ARP, Request who-has 192.168.42.21 tell 192.168.42.22, length 46
+23:06:52.506223 ARP, Reply 192.168.42.21 is-at 08:00:27:a4:84:09 (oui Unknown), length 28
+23:07:13.207808 IP 192.168.42.21.56977 > 192.168.42.22.domain: 45421 notify [b2&3=0x2400] [1a] SOA? exemplo.local. (86)
+23:07:13.208871 IP 192.168.42.22.domain > 192.168.42.21.56977: 45421 notify*- 0/0/0 (31)
+23:07:13.208882 IP 192.168.42.22.32919 > 192.168.42.21.domain: 62566 [1au] SOA? exemplo.local. (46)
+23:07:13.210256 IP 192.168.42.21.domain > 192.168.42.22.32919: 62566* 1/2/3 SOA (173)
+23:07:13.210984 IP 192.168.42.22.60203 > 192.168.42.21.domain: Flags [S], seq 198413750, win 64240, options [mss 1460,sackOK,TS val 2748058526 ecr 0,nop,wscale 6], length 0
+23:07:13.211005 IP 192.168.42.21.domain > 192.168.42.22.60203: Flags [S.], seq 1642788282, ack 198413751, win 65160, options [mss 1460,sackOK,TS val 3208788291 ecr 2748058526,nop,wscale 6], length 0
+23:07:13.211244 IP 192.168.42.22.60203 > 192.168.42.21.domain: Flags [.], ack 1, win 1004, options [nop,nop,TS val 2748058526 ecr 3208788291], length 0
+23:07:13.211785 IP 192.168.42.22.60203 > 192.168.42.21.domain: Flags [P.], seq 1:89, ack 1, win 1004, options [nop,nop,TS val 2748058527 ecr 3208788291], length 88 51956 [1n] IXFR? exemplo.local. (86)
+23:07:13.211806 IP 192.168.42.21.domain > 192.168.42.22.60203: Flags [.], ack 89, win 1017, options [nop,nop,TS val 3208788292 ecr 2748058527], length 0
+23:07:13.212542 IP 192.168.42.21.domain > 192.168.42.22.60203: Flags [P.], seq 1:285, ack 89, win 1017, options [nop,nop,TS val 3208788293 ecr 2748058527], length 284 51956* 11/0/0 SOA, NS ns1.exemplo.local., NS ns2.exemplo.local., A 192.168.42.21, A 192.168.42.22, CNAME ns1.exemplo.local., A 192.168.42.21, A 192.168.42.22, CNAME ns1.exemplo.local., CNAME ns1.exemplo.local., SOA (282)
+23:07:13.212774 IP 192.168.42.22.60203 > 192.168.42.21.domain: Flags [.], ack 285, win 1002, options [nop,nop,TS val 2748058528 ecr 3208788293], length 0
+23:07:13.213189 IP 192.168.42.22.60203 > 192.168.42.21.domain: Flags [F.], seq 89, ack 285, win 1002, options [nop,nop,TS val 2748058528 ecr 3208788293], length 0
+23:07:13.213316 IP 192.168.42.21.domain > 192.168.42.22.60203: Flags [F.], seq 285, ack 90, win 1017, options [nop,nop,TS val 3208788293 ecr 2748058528], length 0
+23:07:13.213427 IP 192.168.42.22.52446 > 192.168.42.21.domain: 28456 notify [b2&3=0x2400] [1a] SOA? exemplo.local. (86)
+23:07:13.213575 IP 192.168.42.21.domain > 192.168.42.22.52446: 28456 notify*- 0/0/0 (31)
+23:07:13.214094 IP 192.168.42.22.60203 > 192.168.42.21.domain: Flags [.], ack 286, win 1002, options [nop,nop,TS val 2748058529 ecr 3208788293], length 0
+23:07:18.319557 ARP, Request who-has 192.168.42.21 tell 192.168.42.22, length 46
+23:07:18.319591 ARP, Reply 192.168.42.21 is-at 08:00:27:a4:84:09 (oui Unknown), length 28
+23:08:02.813068 IP 192.168.42.21 > 192.168.42.22: ICMP echo request, id 2910, seq 1, length 64
+23:08:02.814145 IP 192.168.42.22 > 192.168.42.21: ICMP echo reply, id 2910, seq 1, length 64
+23:08:03.813564 IP 192.168.42.21 > 192.168.42.22: ICMP echo request, id 2910, seq 2, length 64
+23:08:03.814636 IP 192.168.42.22 > 192.168.42.21: ICMP echo reply, id 2910, seq 2, length 64
+23:08:04.814770 IP 192.168.42.21 > 192.168.42.22: ICMP echo request, id 2910, seq 3, length 64
+23:08:04.815408 IP 192.168.42.22 > 192.168.42.21: ICMP echo reply, id 2910, seq 3, length 64
+23:08:05.829371 IP 192.168.42.21 > 192.168.42.22: ICMP echo request, id 2910, seq 4, length 64
+23:08:05.829923 IP 192.168.42.22 > 192.168.42.21: ICMP echo reply, id 2910, seq 4, length 64
+23:08:06.853429 IP 192.168.42.21 > 192.168.42.22: ICMP echo request, id 2910, seq 5, length 64
+23:08:06.854049 IP 192.168.42.22 > 192.168.42.21: ICMP echo reply, id 2910, seq 5, length 64
+23:08:07.909289 ARP, Request who-has 192.168.42.22 tell 192.168.42.21, length 28
+23:08:07.910030 ARP, Reply 192.168.42.22 is-at 08:00:27:4d:b7:1c (oui Unknown), length 46
+23:08:08.036993 ARP, Request who-has 192.168.42.21 tell 192.168.42.22, length 46
+23:08:08.037028 ARP, Reply 192.168.42.21 is-at 08:00:27:a4:84:09 (oui Unknown), length 28
+

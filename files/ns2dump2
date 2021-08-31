@@ -1,0 +1,77 @@
+23:11:28.659202 IP (tos 0x0, ttl 64, id 52173, offset 0, flags [DF], proto ICMP (1), length 84)
+    192.168.42.21 > 192.168.42.22: ICMP echo request, id 2935, seq 1, length 64
+23:11:28.659249 IP (tos 0x0, ttl 64, id 4305, offset 0, flags [none], proto ICMP (1), length 84)
+    192.168.42.22 > 192.168.42.21: ICMP echo reply, id 2935, seq 1, length 64
+23:11:29.667278 IP (tos 0x0, ttl 64, id 52196, offset 0, flags [DF], proto ICMP (1), length 84)
+    192.168.42.21 > 192.168.42.22: ICMP echo request, id 2935, seq 2, length 64
+23:11:29.667384 IP (tos 0x0, ttl 64, id 4493, offset 0, flags [none], proto ICMP (1), length 84)
+    192.168.42.22 > 192.168.42.21: ICMP echo reply, id 2935, seq 2, length 64
+23:11:30.668552 IP (tos 0x0, ttl 64, id 52403, offset 0, flags [DF], proto ICMP (1), length 84)
+    192.168.42.21 > 192.168.42.22: ICMP echo request, id 2935, seq 3, length 64
+23:11:30.668575 IP (tos 0x0, ttl 64, id 4707, offset 0, flags [none], proto ICMP (1), length 84)
+    192.168.42.22 > 192.168.42.21: ICMP echo reply, id 2935, seq 3, length 64
+23:11:31.682318 IP (tos 0x0, ttl 64, id 52611, offset 0, flags [DF], proto ICMP (1), length 84)
+    192.168.42.21 > 192.168.42.22: ICMP echo request, id 2935, seq 4, length 64
+23:11:31.682341 IP (tos 0x0, ttl 64, id 4817, offset 0, flags [none], proto ICMP (1), length 84)
+    192.168.42.22 > 192.168.42.21: ICMP echo reply, id 2935, seq 4, length 64
+23:11:32.706466 IP (tos 0x0, ttl 64, id 52747, offset 0, flags [DF], proto ICMP (1), length 84)
+    192.168.42.21 > 192.168.42.22: ICMP echo request, id 2935, seq 5, length 64
+23:11:32.706488 IP (tos 0x0, ttl 64, id 5067, offset 0, flags [none], proto ICMP (1), length 84)
+    192.168.42.22 > 192.168.42.21: ICMP echo reply, id 2935, seq 5, length 64
+23:11:33.731274 ARP, Ethernet (len 6), IPv4 (len 4), Request who-has 192.168.42.22 tell 192.168.42.21, length 46
+23:11:33.731289 ARP, Ethernet (len 6), IPv4 (len 4), Reply 192.168.42.22 is-at 08:00:27:4d:b7:1c, length 28
+23:11:33.822146 ARP, Ethernet (len 6), IPv4 (len 4), Request who-has 192.168.42.21 tell 192.168.42.22, length 28
+23:11:33.822779 ARP, Ethernet (len 6), IPv4 (len 4), Reply 192.168.42.21 is-at 08:00:27:a4:84:09, length 46
+23:11:42.248317 IP (tos 0x0, ttl 64, id 49485, offset 0, flags [none], proto UDP (17), length 114)
+    192.168.42.21.35739 > 192.168.42.22.53: [udp sum ok] 50299 notify [b2&3=0x2400] [1a] SOA? exemplo.local. exemplo.local. SOA exemplo.local. root.exemplo.local.exemplo.local. 2021082703 604800 86400 2419200 604800 (86)
+23:11:42.248674 IP (tos 0x0, ttl 64, id 57396, offset 0, flags [none], proto UDP (17), length 59)
+    192.168.42.22.53 > 192.168.42.21.35739: [bad udp cksum 0xd5b4 -> 0xfeef!] 50299 notify*- q: SOA? exemplo.local. 0/0/0 (31)
+23:11:42.248806 IP (tos 0x0, ttl 64, id 57397, offset 0, flags [none], proto UDP (17), length 74)
+    192.168.42.22.43494 > 192.168.42.21.53: [bad udp cksum 0xd5c3 -> 0x0cd0!] 13308 [1au] SOA? exemplo.local. ar: . OPT UDPsize=2048 (46)
+23:11:42.249704 IP (tos 0x0, ttl 64, id 49486, offset 0, flags [none], proto UDP (17), length 201)
+    192.168.42.21.53 > 192.168.42.22.43494: [udp sum ok] 13308* q: SOA? exemplo.local. 1/2/3 exemplo.local. SOA exemplo.local. root.exemplo.local.exemplo.local. 2021082703 604800 86400 2419200 604800 ns: exemplo.local. NS ns2.exemplo.local., exemplo.local. NS ns1.exemplo.local. ar: ns1.exemplo.local. A 192.168.42.21, ns2.exemplo.local. A 192.168.42.22, . OPT UDPsize=4096 (173)
+23:11:42.250091 IP (tos 0x0, ttl 64, id 2340, offset 0, flags [DF], proto TCP (6), length 60)
+    192.168.42.22.47085 > 192.168.42.21.53: Flags [S], cksum 0xd5aa (incorrect -> 0x19b7), seq 3970363057, win 64240, options [mss 1460,sackOK,TS val 2748327569 ecr 0,nop,wscale 6], length 0
+23:11:42.250466 IP (tos 0x0, ttl 64, id 0, offset 0, flags [DF], proto TCP (6), length 60)
+    192.168.42.21.53 > 192.168.42.22.47085: Flags [S.], cksum 0xfb7f (correct), seq 875942620, ack 3970363058, win 65160, options [mss 1460,sackOK,TS val 3209057333 ecr 2748327569,nop,wscale 6], length 0
+23:11:42.250486 IP (tos 0x0, ttl 64, id 2341, offset 0, flags [DF], proto TCP (6), length 52)
+    192.168.42.22.47085 > 192.168.42.21.53: Flags [.], cksum 0xd5a2 (incorrect -> 0x24e8), seq 1, ack 1, win 1004, options [nop,nop,TS val 2748327569 ecr 3209057333], length 0
+23:11:42.250776 IP (tos 0x0, ttl 64, id 2342, offset 0, flags [DF], proto TCP (6), length 140)
+    192.168.42.22.47085 > 192.168.42.21.53: Flags [P.], cksum 0xd5fa (incorrect -> 0x6edb), seq 1:89, ack 1, win 1004, options [nop,nop,TS val 2748327569 ecr 3209057333], length 88 29529 [1n] IXFR? exemplo.local. ns: exemplo.local. SOA exemplo.local. root.exemplo.local.exemplo.local. 2021082702 604800 86400 2419200 604800 (86)
+23:11:42.252874 IP (tos 0x0, ttl 64, id 50973, offset 0, flags [DF], proto TCP (6), length 52)
+    192.168.42.21.53 > 192.168.42.22.47085: Flags [.], cksum 0x2480 (correct), seq 1, ack 89, win 1017, options [nop,nop,TS val 3209057336 ecr 2748327569], length 0
+23:11:42.254820 IP (tos 0x0, ttl 64, id 50974, offset 0, flags [DF], proto TCP (6), length 357)
+    192.168.42.21.53 > 192.168.42.22.47085: Flags [P.], cksum 0x258e (correct), seq 1:306, ack 89, win 1017, options [nop,nop,TS val 3209057338 ecr 2748327569], length 305 29529* q: IXFR? exemplo.local. 12/0/0 exemplo.local. SOA exemplo.local. root.exemplo.local.exemplo.local. 2021082703 604800 86400 2419200 604800, exemplo.local. NS ns1.exemplo.local., exemplo.local. NS ns2.exemplo.local., exemplo.local. A 192.168.42.21, exemplo.local. A 192.168.42.22, dns.exemplo.local. CNAME ns1.exemplo.local., ns1.exemplo.local. A 192.168.42.21, ns2.exemplo.local. A 192.168.42.22, teste1.exemplo.local. CNAME ns1.exemplo.local., teste2.exemplo.local. CNAME ns1.exemplo.local., teste3.exemplo.local. CNAME ns1.exemplo.local., exemplo.local. SOA exemplo.local. root.exemplo.local.exemplo.local. 2021082703 604800 86400 2419200 604800 (303)
+23:11:42.254843 IP (tos 0x0, ttl 64, id 2343, offset 0, flags [DF], proto TCP (6), length 52)
+    192.168.42.22.47085 > 192.168.42.21.53: Flags [.], cksum 0xd5a2 (incorrect -> 0x2358), seq 89, ack 306, win 1002, options [nop,nop,TS val 2748327573 ecr 3209057338], length 0
+23:11:42.255497 IP (tos 0x0, ttl 64, id 57398, offset 0, flags [none], proto UDP (17), length 114)
+    192.168.42.22.47510 > 192.168.42.21.53: [bad udp cksum 0xd5eb -> 0x8cad!] 64377 notify [b2&3=0x2400] [1a] SOA? exemplo.local. exemplo.local. SOA exemplo.local. root.exemplo.local.exemplo.local. 2021082703 604800 86400 2419200 604800 (86)
+23:11:42.255742 IP (tos 0x0, ttl 64, id 2344, offset 0, flags [DF], proto TCP (6), length 52)
+    192.168.42.22.47085 > 192.168.42.21.53: Flags [F.], cksum 0xd5a2 (incorrect -> 0x2356), seq 89, ack 306, win 1002, options [nop,nop,TS val 2748327574 ecr 3209057338], length 0
+23:11:42.255954 IP (tos 0x0, ttl 64, id 49488, offset 0, flags [none], proto UDP (17), length 59)
+    192.168.42.21.53 > 192.168.42.22.47510: [udp sum ok] 64377 notify*- q: SOA? exemplo.local. 0/0/0 (31)
+23:11:42.256207 IP (tos 0x0, ttl 64, id 50975, offset 0, flags [DF], proto TCP (6), length 52)
+    192.168.42.21.53 > 192.168.42.22.47085: Flags [F.], cksum 0x2345 (correct), seq 306, ack 90, win 1017, options [nop,nop,TS val 3209057339 ecr 2748327574], length 0
+23:11:42.256228 IP (tos 0x0, ttl 64, id 2345, offset 0, flags [DF], proto TCP (6), length 52)
+    192.168.42.22.47085 > 192.168.42.21.53: Flags [.], cksum 0xd5a2 (incorrect -> 0x2353), seq 90, ack 307, win 1002, options [nop,nop,TS val 2748327575 ecr 3209057339], length 0
+23:11:49.917881 IP (tos 0x0, ttl 64, id 56466, offset 0, flags [DF], proto ICMP (1), length 84)
+    192.168.42.21 > 192.168.42.22: ICMP echo request, id 2962, seq 1, length 64
+23:11:49.917916 IP (tos 0x0, ttl 64, id 9219, offset 0, flags [none], proto ICMP (1), length 84)
+    192.168.42.22 > 192.168.42.21: ICMP echo reply, id 2962, seq 1, length 64
+23:11:50.947012 IP (tos 0x0, ttl 64, id 56662, offset 0, flags [DF], proto ICMP (1), length 84)
+    192.168.42.21 > 192.168.42.22: ICMP echo request, id 2962, seq 2, length 64
+23:11:50.947068 IP (tos 0x0, ttl 64, id 9444, offset 0, flags [none], proto ICMP (1), length 84)
+    192.168.42.22 > 192.168.42.21: ICMP echo reply, id 2962, seq 2, length 64
+23:11:51.970666 IP (tos 0x0, ttl 64, id 56675, offset 0, flags [DF], proto ICMP (1), length 84)
+    192.168.42.21 > 192.168.42.22: ICMP echo request, id 2962, seq 3, length 64
+23:11:51.970719 IP (tos 0x0, ttl 64, id 9558, offset 0, flags [none], proto ICMP (1), length 84)
+    192.168.42.22 > 192.168.42.21: ICMP echo reply, id 2962, seq 3, length 64
+23:11:52.971157 IP (tos 0x0, ttl 64, id 56796, offset 0, flags [DF], proto ICMP (1), length 84)
+    192.168.42.21 > 192.168.42.22: ICMP echo request, id 2962, seq 4, length 64
+23:11:52.971182 IP (tos 0x0, ttl 64, id 9599, offset 0, flags [none], proto ICMP (1), length 84)
+    192.168.42.22 > 192.168.42.21: ICMP echo reply, id 2962, seq 4, length 64
+23:11:53.986262 IP (tos 0x0, ttl 64, id 56865, offset 0, flags [DF], proto ICMP (1), length 84)
+    192.168.42.21 > 192.168.42.22: ICMP echo request, id 2962, seq 5, length 64
+23:11:53.986284 IP (tos 0x0, ttl 64, id 9608, offset 0, flags [none], proto ICMP (1), length 84)
+    192.168.42.22 > 192.168.42.21: ICMP echo reply, id 2962, seq 5, length 64
+
