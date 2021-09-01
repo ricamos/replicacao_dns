@@ -11,12 +11,12 @@ $TTL	604800
 @		IN	NS	ns1.exemplo.local.
 @		IN	NS	ns2.exemplo.local.
 
-@		IN	A	192.168.42.21
-@		IN	A	192.168.42.22
+@		IN	A	192.168.42.20
+@		IN	A	172.16.42.20
 
 ; entradas de nome A
-ns1				IN	A	192.168.42.21
-ns2				IN	A	192.168.42.22
+ns1				IN	A	192.168.42.20
+ns2				IN	A	172.16.42.20
 
 ; entradas de CNAME
 dns			IN	CNAME	ns1

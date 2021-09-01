@@ -9,16 +9,16 @@ Vagrant.configure("2") do |config|
   config.vm.define :ns1 do |ns1_config|
     ns1_config.vm.hostname = "ns1"
     ns1_config.vm.network :private_network,
-                          :ip => "192.168.42.21"
-    #ns1_config.vm.provision "shell", run: "always", inline: "ip route del default via 10.0.2.2 || true"
+                          :ip => "192.168.42.20"
+    ns1_config.vm.provision "shell", run: "always", inline: "ip route del default via 10.0.2.2 || true"
     ns1_config.vm.provision "shell", run: "always", path: "files/ns1.sh"                      
   end
 
   config.vm.define :ns2 do |ns2_config|
     ns2_config.vm.hostname = "ns2"
     ns2_config.vm.network :private_network,
-                          :ip => "192.168.42.22"
-    #ns2_config.vm.provision "shell", run: "always", inline: "ip route del default via 10.0.2.2 || true"                      
+                          :ip => "172.16.42.20"
+    ns2_config.vm.provision "shell", run: "always", inline: "ip route del default via 10.0.2.2 || true"                      
     ns2_config.vm.provision "shell", run: "always", path: "files/ns2.sh"                      
   end
 

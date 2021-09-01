@@ -26,12 +26,14 @@ ns1_config () {
 }
 
 rota_config() {
+	firewall=$1
 	echo "configurando rota"
-	ip route add default via 192.168.42.10	
+	ip route add default via $firewall
+	echo "nameserver 127.0.0.1" >> /etc/resolv.conf 	
 }
 
 main() {
-	#rota_config
+	rota_config 192.168.42.10
 	bind_install
 	ns1_config /vagrant/files/master.conf.local /vagrant/files/db.exemplo
 }
