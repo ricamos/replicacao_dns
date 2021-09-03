@@ -1,0 +1,124 @@
+#!/bin/bash
+
+# Variaveis
+## Rede 
+DMZ="192.168.42.0/24"
+LAN="172.16.42.0/24" # Local
+
+## interfaces
+FWWAN1="10.0.2.15" #Externo
+FWWAN2="192.168.42.10" #DMZ
+#FWLAN="x.x.x.x" #local
+
+##Hosts
+FW1="192.168.42.10"
+ACESSO1="192.168.42.16"
+SCM1="192.168.42.18"
+NS1="192.168.42.20"
+
+APP1="192.168.42.17"
+APP2="192.168.42.13"
+
+##Hosts internos
+THANOS="172.16.42.19"
+NS2="172.16.42.20"
+	
+# 2 - Liberar acesso ao loopback – 127.0.0.1
+iptables -t filter -A INPUT -s 0/0 -d 127.0.0.1 -j ACCEPT
+iptables -t filter -A OUTPUT -s 0/0 -d 127.0.0.1 -j ACCEPT
+
+# 3 - Liberar Ping do Firewall para Internet e para a DMZ
+iptables -t filter -A OUTPUT -p icmp -s 0/0 -d 0/0 -j ACCEPT
+iptables -t filter -A INPUT -p icmp --icmp-type 0 -s 0/0 -d 0/0 -j ACCEPT
+iptables -t filter -A INPUT -p icmp --icmp-type 8 -s $DMZ -d 0/0 -j ACCEPT
+
+# 4 - Liberar Consulta DNS a partir do Firewall
+iptables -t filter -A INPUT -p udp -s 0/0 --sport 53 -d $FWWAN1 -j ACCEPT
+iptables -t filter -A OUTPUT -p udp -s $FWWAN1  -d 0/0 --dport 53 -j ACCEPT
+
+# 5.1 - Permitir Acesso Interno a internet da DMZ
+iptables -t filter -A FORWARD -p tcp -m multiport -s $DMZ -d 0/0 --dport 80,443 -j ACCEPT -m comment --comment "Baixar pacoter apt"
+iptables -t filter -A FORWARD -p tcp -m multiport -s 0/0 -d $DMZ --sport 80,443 -j ACCEPT -m comment --comment "Baixar pacoter apt"
+
+# 7 - Liberar "MASCARAMENTO" de Pacotes da Rede Interna para a Internet
+#iptables -t nat -A POSTROUTING -s $DMZ -d 0/0 -j MASQUERADE
+
+# 8 - Liberar Acesso a Consulta DNS para as Máquinas da DMZ
+iptables -t filter -A FORWARD -p udp -s $DMZ -d 0/0 --dport 53 -j ACCEPT -m comment --comment "Resolução DNS"
+iptables -t filter -A FORWARD -p udp -s 0/0 --sport 53 -d $DMZ -j ACCEPT -m comment --comment "Resolução DNS"
+
+# 9 - Redirecione o Serviço SSH para Servidor acesso1 na DMZ
+iptables -t nat -A PREROUTING -p tcp -s 0/0 -d $FWWAN1 --dport 42712 -j DNAT --to $ACESSO1':22'
+iptables -t filter -A FORWARD -p tcp -s 0/0 -d $ACESSO1 --dport 22 -j ACCEPT
+iptables -t filter -A FORWARD -p tcp -s $ACESSO1 --sport 22 -d 0/0 -j ACCEPT
+
+# 9.1 - Redirecione o Serviço SSH para Servidor ns1 na DMZ
+iptables -t nat -A PREROUTING -p tcp -s 0/0 -d $FWWAN1 --dport 42711 -j DNAT --to $NS1':22'
+iptables -t filter -A FORWARD -p tcp -s 0/0 -d $NS1 --dport 22 -j ACCEPT
+iptables -t filter -A FORWARD -p tcp -s $NS1 --sport 22 -d 0/0 -j ACCEPT
+
+# 9.1 - Redirecione o Serviço SSH para Servidor SCM1 na DMZ
+iptables -t nat -A PREROUTING -p tcp -s 0/0 -d $FWWAN1 --dport 42713 -j DNAT --to $SCM1':22'
+iptables -t filter -A FORWARD -p tcp -s 0/0 -d $SCM1 --dport 22 -j ACCEPT
+iptables -t filter -A FORWARD -p tcp -s $SCM1 --sport 22 -d 0/0 -j ACCEPT
+
+# 9.1 - Redirecione o Serviço SSH para Servidor APP1 na DMZ
+iptables -t nat -A PREROUTING -p tcp -s 0/0 -d $FWWAN1 --dport 42714 -j DNAT --to $APP1':22'
+iptables -t filter -A FORWARD -p tcp -s 0/0 -d $APP1 --dport 22 -j ACCEPT
+iptables -t filter -A FORWARD -p tcp -s $APP1 --sport 22 -d 0/0 -j ACCEPT
+
+# 10.1 - Liberar o ssh na LAN
+iptables -t filter -A OUTPUT -p tcp -s 0/0 -d $LAN --dport 22 -j ACCEPT
+iptables -t filter -A INPUT -p tcp -s $LAN --sport 22 -d 0/0 -j ACCEPT
+iptables -t filter -A FORWARD -p tcp -s $LAN -d $LAN --dport 22 -j ACCEPT
+
+# 10.2 - Liberar Acesso SSH da LAN para o Firewall
+iptables -t filter -A INPUT -p tcp -s $LAN  -d $FWWAN1 --dport 22 -j ACCEPT
+iptables -t filter -A OUTPUT -p tcp  -s $FWWAN1 --sport 22 -d $LAN -j ACCEPT
+
+# 11.1 - Liberar o ssh na DMZ
+iptables -t filter -A OUTPUT -p tcp -s 0/0 -d $DMZ --dport 22 -j ACCEPT
+iptables -t filter -A INPUT -p tcp -s $DMZ --sport 22 -d 0/0 -j ACCEPT
+iptables -t filter -A FORWARD -p tcp -s $DMZ -d $DMZ --dport 22 -j ACCEPT
+
+# 11.2 - Liberar Acesso SSH da DMZ para o Firewall
+iptables -t filter -A INPUT -p tcp -s $DMZ  -d $FWWAN2 --dport 22 -j ACCEPT
+iptables -t filter -A OUTPUT -p tcp  -s $FWWAN2 --sport 22 -d $DMZ -j ACCEPT
+
+# 12 - liberar acesso a serviço de DNS na DMZ
+iptables -t filter -A FORWARD -p udp -s $NS2 -d $NS1 --dport 53 -j ACCEPT -m comment --comment "Transferencia de zona DNS - AXFR"
+iptables -t filter -A FORWARD -p udp -s $NS1  -d $NS2 --sport 53 -j ACCEPT -m comment --comment "Transferencia de zona DNS - AXFR"
+
+iptables -t filter -A FORWARD -p tcp -s $NS2 -d $NS1 --dport 53 -j ACCEPT -m comment --comment "Transferencia de zona DNS - AXFR"
+iptables -t filter -A FORWARD -p tcp -s $NS1 -d $NS2 --sport 53 -j ACCEPT -m comment --comment "Transferencia de zona DNS - AXFR"
+
+iptables -t filter -A FORWARD -p udp -s $NS1 -d $NS2 --dport 53 -j ACCEPT -m comment --comment "Notify DNS secundario"
+iptables -t filter -A FORWARD -p udp -s $NS2  -d $NS1 --sport 53 -j ACCEPT -m comment --comment "Notify DNS secundario"
+
+# 13 - Liberar acesso a aplicações em APP1 na LAN OSticket
+iptables -t filter -A FORWARD -p tcp -s $LAN -d $APP1 --dport 8080 -j ACCEPT
+iptables -t filter -A FORWARD -p tcp -s $APP1 -d $LAN --sport 8080 -j ACCEPT 
+
+# 13.1 - Liberar acesso a aplicações em APP1 na LAN JBOSS
+iptables -t filter -A FORWARD -p tcp -s $LAN -d $APP1 --dport 8081 -j ACCEPT
+iptables -t filter -A FORWARD -p tcp -s $APP1 -d $LAN --sport 8081 -j ACCEPT 
+
+iptables -t filter -A FORWARD -p tcp -s $LAN -d $APP1 --dport 9990 -j ACCEPT
+iptables -t filter -A FORWARD -p tcp -s $APP1 -d $LAN --sport 9990 -j ACCEPT
+
+iptables -t filter -A FORWARD -p tcp -s $LAN -d $APP1 --dport 80 -j ACCEPT
+iptables -t filter -A FORWARD -p tcp -s $APP1 -d $LAN --sport 80 -j ACCEPT
+
+# 13.2 - Liberar acesso a BD Microsoft SQL THANOS na porta 1441 1452 1453.
+iptables -t filter -A FORWARD -p tcp -s $DMZ -d $THANOS --dport 1441 -j ACCEPT
+iptables -t filter -A FORWARD -p tcp -s $THANOS -d $DMZ --sport 1441 -j ACCEPT
+
+iptables -t filter -A FORWARD -p tcp -s $DMZ -d $THANOS --dport 1452 -j ACCEPT
+iptables -t filter -A FORWARD -p tcp -s $THANOS -d $DMZ --sport 1452 -j ACCEPT
+
+iptables -t filter -A FORWARD -p tcp -s $DMZ -d $THANOS --dport 1453 -j ACCEPT
+iptables -t filter -A FORWARD -p tcp -s $THANOS -d $DMZ --sport 1453 -j ACCEPT
+
+# 13.3 - Liberar smtp.googlemail.com na porta SMTP 587 em APP1.
+iptables -t filter -A FORWARD -p tcp -s $APP1 -d 0/0 --dport 587 -j ACCEPT
+iptables -t filter -A FORWARD -p tcp -s 0/0 -d $APP1 --sport 587 -j ACCEPT  

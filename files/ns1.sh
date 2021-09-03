@@ -1,3 +1,5 @@
+#!/bin/sh
+
 bind_install() {
 
 	echo "Instalação..."
