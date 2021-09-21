@@ -18,6 +18,7 @@ NS1="192.168.42.20"
 
 APP1="192.168.42.17"
 APP2="192.168.42.13"
+APPs="$APP1 $APP2"
 
 ##Hosts internos
 THANOS="172.16.42.19"
@@ -96,29 +97,20 @@ iptables -t filter -A FORWARD -p udp -s $NS1 -d $NS2 --dport 53 -j ACCEPT -m com
 iptables -t filter -A FORWARD -p udp -s $NS2  -d $NS1 --sport 53 -j ACCEPT -m comment --comment "Notify DNS secundario"
 
 # 13 - Liberar acesso a aplicações em APP1 na LAN OSticket
-iptables -t filter -A FORWARD -p tcp -s $LAN -d $APP1 --dport 8080 -j ACCEPT
-iptables -t filter -A FORWARD -p tcp -s $APP1 -d $LAN --sport 8080 -j ACCEPT 
+for APP in $APPs; do
+	# 13.1 - Liberar acesso a aplicações (JBOSS) em APP1 na LAN
+	iptables -t filter -A FORWARD -p tcp -m multiport -s $LAN -d $APP --dport 8080,8081,9990 -j ACCEPT -m comment --comment "acesso a app jboss adm"
+	iptables -t filter -A FORWARD -p tcp -m multiport -s $APP -d $LAN --sport 8080,8081,9990 -j ACCEPT -m comment --comment "acesso a app jboss adm" 
 
-# 13.1 - Liberar acesso a aplicações em APP1 na LAN JBOSS
-iptables -t filter -A FORWARD -p tcp -s $LAN -d $APP1 --dport 8081 -j ACCEPT
-iptables -t filter -A FORWARD -p tcp -s $APP1 -d $LAN --sport 8081 -j ACCEPT 
+	# 13.2 Liberar acesso a aplicação web 
+	iptables -t filter -A FORWARD -p tcp -s 0/0 -d $APP --dport 80 -j ACCEPT -m comment --comment "acesso externo a app:80"
+	iptables -t filter -A FORWARD -p tcp -s $APP -d 0/0 --sport 80 -j ACCEPT -m comment --comment "acesso externo a app:80"
 
-iptables -t filter -A FORWARD -p tcp -s $LAN -d $APP1 --dport 9990 -j ACCEPT
-iptables -t filter -A FORWARD -p tcp -s $APP1 -d $LAN --sport 9990 -j ACCEPT
+	# 13.3 - Liberar smtp.googlemail.com na porta SMTP 587 em APP1.
+	iptables -t filter -A FORWARD -p tcp -s $APP -d 0/0 --dport 587 -j ACCEPT -m comment --comment "acesso a smtp externo"
+	iptables -t filter -A FORWARD -p tcp -s 0/0 -d $APP --sport 587 -j ACCEPT -m comment --comment "acesso a smtp externo"
+done  
 
-iptables -t filter -A FORWARD -p tcp -s $LAN -d $APP1 --dport 80 -j ACCEPT
-iptables -t filter -A FORWARD -p tcp -s $APP1 -d $LAN --sport 80 -j ACCEPT
-
-# 13.2 - Liberar acesso a BD Microsoft SQL THANOS na porta 1441 1452 1453.
-iptables -t filter -A FORWARD -p tcp -s $DMZ -d $THANOS --dport 1441 -j ACCEPT
-iptables -t filter -A FORWARD -p tcp -s $THANOS -d $DMZ --sport 1441 -j ACCEPT
-
-iptables -t filter -A FORWARD -p tcp -s $DMZ -d $THANOS --dport 1452 -j ACCEPT
-iptables -t filter -A FORWARD -p tcp -s $THANOS -d $DMZ --sport 1452 -j ACCEPT
-
-iptables -t filter -A FORWARD -p tcp -s $DMZ -d $THANOS --dport 1453 -j ACCEPT
-iptables -t filter -A FORWARD -p tcp -s $THANOS -d $DMZ --sport 1453 -j ACCEPT
-
-# 13.3 - Liberar smtp.googlemail.com na porta SMTP 587 em APP1.
-iptables -t filter -A FORWARD -p tcp -s $APP1 -d 0/0 --dport 587 -j ACCEPT
-iptables -t filter -A FORWARD -p tcp -s 0/0 -d $APP1 --sport 587 -j ACCEPT  
+# 14 - Liberar acesso a BD Microsoft SQL THANOS na porta 1441 1452 1453.
+iptables -t filter -A FORWARD -p tcp -m multiport -s $DMZ -d $THANOS --dport 1441,1452,1453 -j ACCEPT -m comment --comment "acesso ao BD"
+iptables -t filter -A FORWARD -p tcp -m multiport -s $THANOS -d $DMZ --sport 1441,1452,1453 -j ACCEPT -m comment --comment "acesso ao BD"
