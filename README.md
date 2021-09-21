@@ -2,8 +2,8 @@
 
 ## Sumário:
 
-1. [Motivation](#motivacao)
-2. [File description](#file)
+1. [Motivação](#motivacao)
+2. [Descrição de arquivos](#file)
 3. [Interação com o projeto](#interact)
 4. [Autor e referências](#autor)
 5. [Base de conhecimento](#ack)
